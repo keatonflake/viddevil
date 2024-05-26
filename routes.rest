@@ -28,3 +28,44 @@ Content-Type: application/json
 
 DELETE http://localhost:5000/api/movies/{movieId}
 
+______________RENDER___________________________
+### Get all movies
+GET https://viddevil.onrender.com/movies
+
+###
+
+### Get a movie by ID
+GET https://viddevil.onrender.com/movies/{movieId}
+
+###
+
+### Create a new movie
+POST https://viddevil.onrender.com/movies
+Content-Type: application/json
+
+{
+  "title": "Mulan",
+  "release_year": 1998,
+  "genre": ["Animation", "Adventure", "Family"],
+  "director": "Tony Bancroft, Barry Cook",
+  "rating": 7.6
+}
+
+###
+
+### Update a movie by ID
+PUT https://viddevil.onrender.com/movies/{movieId}
+Content-Type: application/json
+
+{
+  "title": "Mulan",
+  "release_year": 1998,
+  "genre": ["Animation", "Adventure", "Family"],
+  "director": "Tony Bancroft, Barry Cook",
+  "rating": 8.0
+}
+
+###
+
+### Delete a movie by ID
+DELETE https://viddevil.onrender.com/movies/{movieId}
