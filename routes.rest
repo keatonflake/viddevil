@@ -1,0 +1,30 @@
+GET http://localhost:5000/api/movies
+
+GET http://localhost:5000/api/movies/{movieId}
+
+
+POST http://localhost:5000/api/movies
+Content-Type: application/json
+
+{
+  "title": "Mulan",
+  "release_year": 1998,
+  "genre": ["Animation", "Adventure", "Family"],
+  "director": "Tony Bancroft, Barry Cook",
+  "rating": 7.6
+}
+
+
+PUT http://localhost:5000/api/movies/{movieId}
+Content-Type: application/json
+
+{
+  "title": "Mulan",
+  "release_year": 1998,
+  "genre": ["Animation", "Adventure", "Family"],
+  "director": "Tony Bancroft, Barry Cook",
+  "rating": 8.0
+}
+
+DELETE http://localhost:5000/api/movies/{movieId}
+
