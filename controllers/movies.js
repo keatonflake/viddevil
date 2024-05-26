@@ -19,10 +19,8 @@ const getAllMovies = async (req, res) => {
 
 const getMovieById = async (req, res) => {
   const id = new ObjectId(req.params.id);
-  const result = await mongodb
-    .getDb()
-    .db()
-    .collection("movies")
+  const db = mongodb.getDb();
+  const result = await db.collection("movies")
     .findOne({ _id: id });
   if (result) {
     res.status(200).json(result);
@@ -40,10 +38,8 @@ const createMovie = async (req, res) => {
     rating: req.body.rating,
   };
 
-  const result = await mongodb
-    .getDb()
-    .db()
-    .collection("movies")
+  const db = mongodb.getDb();
+  const result = await db.collection("movies")
     .insertOne(movie);
   if (result) {
     res.status(201).json(result);
@@ -63,10 +59,8 @@ const updateMovie = async (req, res) => {
       rating: req.body.rating,
     };
 
-    const response = await mongodb
-      .getDb()
-      .db()
-      .collection("movies")
+    const db = mongodb.getDb();
+    const response = await db.collection("movies")
       .replaceOne({ _id: id }, movie);
 
     if (response.modifiedCount > 0) {
@@ -88,10 +82,8 @@ const updateMovie = async (req, res) => {
 const deleteMovie = async (req, res) => {
   try {
     const id = new ObjectId(req.params.id);
-    const response = await mongodb
-      .getDb()
-      .db()
-      .collection("movies")
+    const db = mongodb.getDb();
+    const response = await db.collection("movies")
       .deleteOne({ _id: id }, true);
 
     if (response.deletedCount > 0) {
