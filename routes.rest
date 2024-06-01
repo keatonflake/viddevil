@@ -8,7 +8,7 @@ GET http://localhost:8080/movies/6652a65d38127ce9769e4c72
 POST http://localhost:8080/movies
 Content-Type: application/json
 {
-  "title": "Mulan",
+  "title": "Keaton_test",
   "release_year": 1998,
   "genre": ["Animation", "Adventure"],
   "director": "Tony Bancroft, Barry Cook",

@@ -6,6 +6,7 @@ const doc = {
     description: 'API for VidDevil',
   },
   host: 'viddevil.onrender.com',
+  // host: 'localhost:8080',
   schemes: ['https'],
 };
 

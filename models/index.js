@@ -7,6 +7,8 @@ mongoose.promise = global.Promise;
 const db = {};
 db.mongoose = mongoose;
 db.url = process.env.MONGODB_URI;
-db.movies = require("./movie");
+console.log(1);
+
+db.Movie = require('./movie.js')(mongoose);
 
 module.exports = db;
