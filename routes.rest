@@ -35,7 +35,7 @@ GET https://viddevil.onrender.com/movies
 ###
 
 ### Get a movie by ID
-GET https://viddevil.onrender.com/movies/{movieId}
+GET https://viddevil.onrender.com/movies/6652a65d38127ce9769e4c71
 
 ###
 
@@ -54,11 +54,11 @@ Content-Type: application/json
 ###
 
 ### Update a movie by ID
-PUT https://viddevil.onrender.com/movies/{movieId}
+PUT https://viddevil.onrender.com/movies/6658d3e66fbdad9fc2c8d847
 Content-Type: application/json
 
 {
-  "title": "Mulan",
+  "title": "test",
   "release_year": 1998,
   "genre": ["Animation", "Adventure", "Family"],
   "director": "Tony Bancroft, Barry Cook",
@@ -68,4 +68,4 @@ Content-Type: application/json
 ###
 
 ### Delete a movie by ID
-DELETE https://viddevil.onrender.com/movies/{movieId}
+DELETE https://viddevil.onrender.com/movies/6658d3e66fbdad9fc2c8d847
