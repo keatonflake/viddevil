@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 const express = require("express");
 const router = express.Router();
 
-const mongodb = require("../db/connect");
+const mongodb = require("../config/db");
 const ObjectId = require("mongodb").ObjectId;
 
 const Joi = require('joi');
