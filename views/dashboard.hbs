@@ -1,1 +1,60 @@
 <h1>Dashboard</h1>
+
+<a href="/movies"><i class="fas fa-film"></i> All Movies</a>
+<br>
+<br>
+<a id="findMovieLink" href="#"><i class="fas fa-info"></i> Find Movie by ID :</a>
+<input type="text" name="find_id" id="find_id" placeholder="Enter movie ID to find">
+<br>
+<br>
+<a id="deleteMovieLink" href="#"><i class="fas fa-trash"></i> Delete movie</a>
+<input type="text" name="delete_id" id="delete_id" placeholder="Enter movie ID to delete">
+<br>
+<br>
+<a id="editMovieLink" href="#"><i class="fas fa-edit"></i> Edit movie</a>
+<input type="text" name="edit_id" id="edit_id" placeholder="Enter movie ID to edit">
+<br>
+<br><a href="/api-docs"><i class="fas fa-plus"></i> Add new movie</a>
+  {{!-- <form id="addMovieForm" action="/movies" method="POST">
+        <label for="title">Title:</label>
+        <input type="text" name="title" id="title" required>
+        <br>
+        <label for="release_year">Release Year:</label>
+        <input type="number" name="release_year" id="release_year" required>
+        <br>
+        <label for="genre">Genre (comma separated):</label>
+        <input type="text" name="genre" id="genre" required>
+        <br>
+        <label for="director">Director:</label>
+        <input type="text" name="director" id="director" required>
+        <br>
+        <label for="rating">Rating:</label>
+        <input type="number" step="0.1" name="rating" id="rating" required>
+        <br>
+        <button type="submit">Add Movie</button>
+    </form> --}}
+
+<script>
+    const findInput = document.querySelector('#find_id');
+    const deleteInput = document.querySelector('#delete_id');
+    const editInput = document.querySelector('#edit_id');
+
+    const findLink = document.querySelector('#findMovieLink');
+    const deleteLink = document.querySelector('#deleteMovieLink');
+    const editLink = document.querySelector('#editMovieLink');
+
+    findInput.addEventListener('input', () => {
+        const id = findInput.value;
+        findLink.href = `/movies/${id}`;
+    });
+
+    deleteInput.addEventListener('input', () => {
+        const id = deleteInput.value;
+        deleteLink.href = `/movies/${id}`;
+    });
+
+    editInput.addEventListener('input', () => {
+        const id = editInput.value;
+        editLink.href = `/movies/${id}`;
+    });
+</script>

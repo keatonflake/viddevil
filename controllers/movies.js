@@ -2,6 +2,8 @@ const { body, validationResult } = require('express-validator');
 const express = require("express");
 const router = express.Router();
 
+const Movie = require('../models/Movie');
+
 const mongodb = require("../config/db");
 const ObjectId = require("mongodb").ObjectId;
 
@@ -29,26 +31,24 @@ const movieSchema = Joi.object({
 
 const getAllMovies = async (req, res) => {
   try {
-    const db = mongodb.getDb();
-    const movies = await db.collection("movies").find().toArray();
+    const movies = await Movie.find(); // Mongoose method to get all movies
     res.json(movies);
   } catch (error) {
-    res.status(500).json({ error: "Database query failed", details: error.message });
+    res.status(500).json({ error: 'Database query failed', details: error.message });
   }
 };
 
 const getMovieById = async (req, res) => {
   try {
-    const id = new ObjectId(req.params.id);
-    const db = mongodb.getDb();
-    const movie = await db.collection("movies").findOne({ _id: id });
+    const id = req.params.id; // Mongoose automatically handles conversion to ObjectId
+    const movie = await Movie.findById(id);
     if (movie) {
       res.json(movie);
     } else {
-      res.status(404).json({ error: "Movie not found" });
+      res.status(404).json({ error: 'Movie not found' });
     }
   } catch (error) {
-    res.status(500).json({ error: "Database query failed", details: error.message });
+    res.status(500).json({ error: 'Database query failed', details: error.message });
   }
 };
 
@@ -59,16 +59,15 @@ const createMovie = async (req, res) => {
   }
 
   try {
-    const movie = {
+    const movie = new Movie({
       title: req.body.title,
       release_year: req.body.release_year,
       genre: req.body.genre,
       director: req.body.director,
       rating: req.body.rating,
-    };
+    });
 
-    const db = mongodb.getDb();
-    const response = await db.collection("movies").insertOne(movie);
+    const response = await movie.save();
 
     return res.status(201).json({ _id: response.insertedId, ...movie });
   } catch (error) {
@@ -83,8 +82,8 @@ const updateMovie = async (req, res) => {
   }
 
   try {
-    const id = new ObjectId(req.params.id);
-    const movie = {
+    const id = req.params.id; // Mongoose automatically handles conversion to ObjectId
+    const movieData = {
       title: req.body.title,
       release_year: req.body.release_year,
       genre: req.body.genre,
@@ -92,13 +91,12 @@ const updateMovie = async (req, res) => {
       rating: req.body.rating,
     };
 
-    const db = mongodb.getDb();
-    const response = await db.collection("movies").updateOne({ _id: id }, { $set: movie });
+    const response = await Movie.findByIdAndUpdate(id, { $set: movieData }, { new: true });
 
-    if (response.modifiedCount > 0) {
+    if (response) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || "Some error occurred while updating the movie.");
+      res.status(500).json({ error: "Some error occurred while updating the movie." });
     }
   } catch (error) {
     res.status(500).json({ error: "Database update failed", details: error.message });
@@ -107,14 +105,13 @@ const updateMovie = async (req, res) => {
 
 const deleteMovie = async (req, res) => {
   try {
-    const id = new ObjectId(req.params.id);
-    const db = mongodb.getDb();
-    const response = await db.collection("movies").deleteOne({ _id: id });
+    const id = req.params.id; // Mongoose automatically handles conversion to ObjectId
+    const response = await Movie.findByIdAndDelete(id);
 
-    if (response.deletedCount > 0) {
+    if (response) {
       res.status(204).send();
     } else {
-      res.status(500).json(response.error || "Some error occurred while deleting the movie.");
+      res.status(500).json({ error: "Some error occurred while deleting the movie." });
     }
   } catch (error) {
     res.status(500).json({ error: "Database deletion failed", details: error.message });

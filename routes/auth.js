@@ -13,4 +13,10 @@ router.get("/google/callback", passport.authenticate("google", { failureRedirect
 // router.use('/api-docs', require('./swagger'));
 // router.use('/movies', require('./movies'));
 
+// Logout /auth/logout
+router.get("/logout", (req, res) => {
+    req.logout();
+    res.redirect("/");
+});
+
 module.exports = router;

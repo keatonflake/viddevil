@@ -56,7 +56,9 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/", routes);
-app.use("/", require("./routes/auth"));
+app.use("/auth", require("./routes/auth"));
+
+// PORT
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`));
