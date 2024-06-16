@@ -5,9 +5,9 @@ const doc = {
     title: 'VidDevil API',
     description: 'API for VidDevil',
   },
-  host: 'viddevil.onrender.com',
-  // host: 'localhost:8080',
-  schemes: ['https'],
+  // host: 'viddevil.onrender.com',
+  host: 'localhost:8080',
+  schemes: ['http'],
 };
 
 const outputFile = './swagger.json';

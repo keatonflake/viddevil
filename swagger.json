@@ -5,10 +5,10 @@
     "description": "API for VidDevil",
     "version": "1.0.0"
   },
-  "host": "viddevil.onrender.com",
+  "host": "localhost:8080",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/": {
