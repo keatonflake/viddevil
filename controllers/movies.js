@@ -2,7 +2,7 @@ const { body, validationResult } = require('express-validator');
 const express = require("express");
 const router = express.Router();
 
-const Movie = require('../models/Movie');
+const Movie = require('../models/movie.js');
 
 const mongodb = require("../config/db");
 const ObjectId = require("mongodb").ObjectId;
