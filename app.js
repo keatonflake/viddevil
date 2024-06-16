@@ -6,8 +6,8 @@ const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const passport = require("passport");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
-const routes = require("./routes/index.js");
 
 // Load config
 dotenv.config({ path: "./config/config.env" });
@@ -29,12 +29,13 @@ if (process.env.NODE_ENV === "development") {
 app.engine(".hbs", exphbs.engine({ defaultLayout: "main", extname: ".hbs" }));
 app.set("view engine", ".hbs");
 
-// session
+// Sessions
 app.use(
     session({
         secret: "keyboard cat",
         resave: false,
         saveUninitialized: false,
+        store: MongoStore.create({ mongoUrl: process.env.MONGO_URI })
     })
 );
 
@@ -42,11 +43,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// static folder
+// Static folder
 app.use(express.static(path.join(__dirname, "public")));
 
 // Body parser
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // CORS
 app.use((req, res, next) => {
@@ -55,7 +57,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/", routes);
+app.use("/", require("./routes/index"));
 app.use("/auth", require("./routes/auth"));
 
 // PORT

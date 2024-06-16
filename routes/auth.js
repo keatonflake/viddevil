@@ -2,21 +2,20 @@ const express = require("express");
 const passport = require("passport");
 const router = express.Router();
 
-// Login/landing page
+// Login with Google
 router.get("/google", passport.authenticate("google", { scope: ["profile"] }));
 
-router.get("/google/callback", passport.authenticate("google", { failureRedirect: 
-"/" }), (req, res) => {
+// Google callback
+router.get("/google/callback", passport.authenticate("google", { failureRedirect: "/" }), (req, res) => {
     res.redirect("/dashboard");
 });
 
-// router.use('/api-docs', require('./swagger'));
-// router.use('/movies', require('./movies'));
-
-// Logout /auth/logout
-router.get("/logout", (req, res) => {
-    req.logout();
-    res.redirect("/");
+// Logout
+router.get("/logout", (req, res, next) => {
+    req.logout((err) => {
+        if (err) { return next(err); }
+        res.redirect("/");
+    });
 });
 
 module.exports = router;
